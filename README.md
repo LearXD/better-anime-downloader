@@ -29,12 +29,12 @@ To install NodeJS on your system, follow these steps:
 
 1. Open your Termux terminal
 2. Update your system's package list: `apt update`
-3. Install Node.js: `apt install nodejs`
+3. Install Node.js: `pkg install nodejs-lts`
 4. Verify that Node.js was installed correctly: `node -v`
 
-## Project Installation
+## Project Installation 
 
-To install the project, follow these steps:
+To install the project see [releases](https://github.com/LearXD/better-anime-downloader/releases), or follow these steps:
 
 1. Clone the repository: `git clone https://github.com/LearXD/better-anime-downloader.git`
 2. Navigate to the project directory: `cd better-anime-downloader`
@@ -56,17 +56,24 @@ $ download <url> [options]
 
 Options:
 -V, --version output the version number
+-Q, --quality <quality> must be 480p, 720p, 1080p
 -h, --help display help for command
- t, --token <token> access token to use
+-t, --token <token> access token to use
 -f, --file <output> file name to save the video
---subtitles [language] download subtitles in a specific language
 ```
 
 # TODO
 
-* Add download progress
-* Add download speed
-* Easy method for getting access token
+- [x] Download anime
+- [x] Download anime with quality
+- [x] Download anime with custom file name
+- [x] Download anime with access token
+- [x] Add download progress
+- [x] Add download progress bar
+- [x] Add download speed
+
+- [ ] Easy method for getting access token
+- [ ] Download full playlist
 
 
 ## Credits
