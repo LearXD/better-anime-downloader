@@ -64,7 +64,6 @@ Options:
 
 # TODO
 
-* Add quality selector
 * Add download progress
 * Add download speed
 * Easy method for getting access token

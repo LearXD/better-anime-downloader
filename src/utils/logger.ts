@@ -1,4 +1,5 @@
 import readline from 'readline';
+import chalk from 'chalk';
 
 interface LoggerOptions {
   prompt?: string;
