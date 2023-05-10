@@ -48,7 +48,8 @@ To install the project, follow these steps:
 ## Usage
 ```bash
 # LINUX (...TERMUX)
-$ ./download <url> [options]
+$ sudo chmod +x download.sh
+$ ./download.sh <url> [options]
 
 # WINDOWS
 $ download <url> [options]
@@ -56,6 +57,7 @@ $ download <url> [options]
 Options:
 -V, --version output the version number
 -h, --help display help for command
+ t, --token <token> access token to use
 -f, --file <output> file name to save the video
 --subtitles [language] download subtitles in a specific language
 ```
