@@ -20,7 +20,7 @@ export default class BetterAnimeDownloader {
 
     const headers = {
       "cookie": `betteranime_session=${this.options.token}`,
-      "Referer": url
+      "referer": url
     }
 
     const response = await fetch(url, { headers });
@@ -38,42 +38,38 @@ export default class BetterAnimeDownloader {
     const qualityRegex = new RegExp(`qualityString\\["${quality}"\\]\\s*=\\s*"([^"]+)"`)
     const tokenRegex = new RegExp(/_token:"([^"]+)"/)
 
-    let playerUrl: string;
+    let playerInfo: string;
+    let playerToken: string;
 
-    if (quality !== '1080p') {
-      let playerInfo: string;
-      let playerToken: string;
-
-      BetterWindow.document.querySelectorAll('script').forEach((element) => {
-        const found = element.innerHTML.toString().match(tokenRegex)
-        if (found) {
-          playerInfo = element.innerHTML.toString().match(qualityRegex)[1]
-          playerToken = found[1]
-          return;
-        }
-      });
-
-      if (!playerInfo || !playerToken) {
-        throw new Error(`No player token or info found for quality ${quality}`)
+    BetterWindow.document.querySelectorAll('script').forEach((element) => {
+      const found = element.innerHTML.toString().match(tokenRegex)
+      if (found) {
+        playerInfo = element.innerHTML.toString().match(qualityRegex)[1]
+        playerToken = found[1]
+        return;
       }
+    });
 
-      const changePlayerResponse = await fetch("https://betteranime.net/changePlayer", {
-        headers: {
-          ...headers,
-          "content-type": "application/x-www-form-urlencoded; charset=UTF-8"
-        },
-        "body": `_token=${playerToken}&info=${playerInfo}`,
-        "method": "POST"
-      });
-
-      if (changePlayerResponse.status !== 200) {
-        throw new Error('Error while changing player quality')
-      }
-
-      playerUrl = (await changePlayerResponse.json()).frameLink
-    } else {
-      playerUrl = BetterWindow.document.querySelector('iframe').src
+    if (!playerInfo || !playerToken) {
+      throw new Error(`No player token or info found for quality ${quality}`)
     }
+
+    const changePlayerResponse = await fetch("https://betteranime.net/changePlayer", {
+      headers: {
+        ...headers,
+        "content-type": "application/x-www-form-urlencoded; charset=UTF-8"
+      },
+      "body": `_token=${playerToken}&info=${encodeURIComponent(playerInfo)}`,
+      "method": "POST"
+    });
+
+
+    if (changePlayerResponse.status !== 200) {
+      throw new Error('Error while changing player quality')
+    }
+
+    const playerUrl = (await changePlayerResponse.json()).frameLink
+
 
     if (!name || !episode || !views || !playerUrl) {
       throw new Error('The anime URL must be from BetterAnime')

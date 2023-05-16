@@ -4,3 +4,4 @@ build/
 .env
 
 *.mp4
+m3u8/
