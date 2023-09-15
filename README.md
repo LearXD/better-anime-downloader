@@ -8,6 +8,8 @@
 
 A program to download animes from Better Animes website!
 
+![Example](images/terminal.png)
+
 ## NodeJS Installation
 
 To install NodeJS on your system, follow these steps:
